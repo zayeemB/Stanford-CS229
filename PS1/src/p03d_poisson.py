@@ -41,6 +41,19 @@ class PoissonRegression(LinearModel):
             y: Training example labels. Shape (m,).
         """
         # *** START CODE HERE ***
+        self.theta = np.zeros(x.shape[1])
+
+        itr = 0
+        while(itr <= self.max_iter):
+            mu = np.exp(x @ self.theta)
+            theta_prev = self.theta
+
+            self.theta = self.theta + self.step_size * (x.T @ (y - mu))
+
+            if np.linalg.norm(self.theta - theta_prev, ord=1) <= self.eps:
+                break
+            
+            itr += 1
         # *** END CODE HERE ***
 
     def predict(self, x):
@@ -53,4 +66,5 @@ class PoissonRegression(LinearModel):
             Floating-point prediction for each input, shape (m,).
         """
         # *** START CODE HERE ***
+        return np.exp(x @ self.theta)
         # *** END CODE HERE ***
