@@ -75,8 +75,6 @@ class LogisticRegression(LinearModel):
         """
         # *** START CODE HERE ***
         probabilities = 1/(1+np.exp(-x@self.theta))
-
-        predictions = (probabilities >= 0.5).astype(int) 
         
-        return predictions
+        return probabilities
         # *** END CODE HERE ***
