@@ -45,8 +45,8 @@ def main(tau, train_path, eval_path):
     plt.legend()
     
     # Render the graph onto the screen
-    plt.show()
-    plt.savefig("../ouput/p05b.png")
+    plt.savefig("../output/plots/p05b.png")
+    # plt.show()
     # *** END CODE HERE ***
 
 
@@ -92,11 +92,11 @@ class LocallyWeightedLinearRegression(LinearModel):
 
         w_daigs = w[:, :, np.newaxis] * np.eye(w.shape[1])
         
-        s = self.x.T[np.newaxis, :, :] @ w_daigs @ self.x
-        r = self.x.T[np.newaxis, :, :] @ w_daigs @ self.y
+        s = self.x.T @ w_daigs @ self.x
+        r = self.x.T @ w_daigs @ self.y
 
         theta = np.linalg.inv(s) @ r[:, :, np.newaxis]
         theta = np.squeeze(theta, axis=-1)
-        
+
         return np.sum(theta * x, axis=1)
         # *** END CODE HERE ***
