@@ -8,12 +8,11 @@ def calc_grad(X, Y, theta):
     """Compute the gradient of the loss with respect to theta."""
     m, n = X.shape
 
-    margins = Y * X.dot(theta)
+    margins = (Y * X.dot(theta))
     probs = 1. / (1 + np.exp(margins))
     grad = -(1./m) * (X.T.dot(probs * Y))
 
-    return grad
-
+    return grad 
 
 def logistic_regression(X, Y):
     """Train a logistic regression model."""
@@ -29,6 +28,8 @@ def logistic_regression(X, Y):
         theta = theta - learning_rate * grad
         if i % 10000 == 0:
             print('Finished %d iterations' % i)
+            print(f"Norm: {np.linalg.norm(theta)}")
+            print(f"Grad: {grad}")
         if np.linalg.norm(prev_theta - theta) < 1e-15:
             print('Converged in %d iterations' % i)
             break

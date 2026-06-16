@@ -102,7 +102,7 @@ def plot(x, y, theta, save_path, correction=1.0):
 
 def plot_contour(predict_fn):
     """Plot a contour given the provided prediction function"""
-    x, y = np.meshgrid(np.linspace(-10, 10, num=20), np.linspace(-10, 10, num=20))
+    x, y = np.meshgrid(np.linspace(-10, 10, num=200), np.linspace(-10, 10, num=200))
     z = np.zeros(x.shape)
 
     for i in range(x.shape[0]):
