@@ -188,13 +188,16 @@ def get_top_five_naive_bayes_words(model, dictionary):
     _, pxi1, pxi0 = model
     log_ratio = np.log(pxi1/pxi0)
 
-    top_5_indices = np.argpartition(log_ratio, -5)[-5:]
-    top_5_indices = np.sort(top_5_indices)[::-1]
-    l = []
-    for key in dictionary:
-        if dictionary[key] in top_5_indices:
-            l.append(key)
-    return l
+    top_5_unsorted = np.argpartition(log_ratio, -5)[-5:]
+    
+    # Sort those 5 indices by their actual log_ratio values (descending)
+    top_5_indices = top_5_unsorted[np.argsort(log_ratio[top_5_unsorted])[::-1]]
+    
+    index_to_word = {v: k for k, v in dictionary.items()}
+
+    top_5_words = [index_to_word[i] for i in top_5_indices]
+    
+    return top_5_words
     # *** END CODE HERE ***
 
 
@@ -228,7 +231,7 @@ def compute_best_svm_radius(train_matrix, train_labels, val_matrix, val_labels, 
 
         if accuracy > max_accuracy:
             optim_rad = radius
-    return radius
+    return optim_rad
     # *** END CODE HERE ***
 
 
